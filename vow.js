@@ -13,6 +13,7 @@
 
 var Promise = function(val) {
     this._res = val;
+    this.ctx = null;
 
     this._isFulfilled = !!arguments.length;
     this._isRejected = false;
@@ -79,6 +80,9 @@ Promise.prototype = {
         else if(onProgress && !isFunction(onProgress)) {
             ctx = onProgress;
             onProgress = undef;
+        }
+        else if (ctx === undef){
+            ctx = this;
         }
 
         var promise = new Promise(),
